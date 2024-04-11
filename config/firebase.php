@@ -51,7 +51,7 @@ return [
              */
 
             'credentials' => env('FIREBASE_CREDENTIALS', base_path('firebase_credentials.json')),
-
+            'auto_discovery' => false,
             /*
              * ------------------------------------------------------------------------
              * Firebase Auth Component

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class FirebasePushController extends Controller
@@ -19,5 +20,21 @@ class FirebasePushController extends Controller
         $token = $request->input("fcm_token");
         $request->user()->update(['fcm_token'=> $token]);
         return response()->json(['message'=>'Successfully Updated Token']);
+    }
+
+    public function notification(Request $request)
+    {
+        // $FcmToken = auth()->user()->fcm_token;
+        $title = $request->input('title');
+        $body = $request->input('body');
+        $message = CloudMessage::fromArray([
+        //   'token' => $FcmToken,
+        'notification' => [
+            'title' => $title,
+            'body' => $body
+            ],
+        ]);
+
+         $this->notification->sendAll([$message]);
     }
 }
