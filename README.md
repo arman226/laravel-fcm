@@ -23,37 +23,33 @@ php artisan make:migration add_fcm_device_token_column_to_users_table --table=us
 composer require kreait/laravel-firebase
 ```
 
-<!--
-Use npm
+## Create A Controller to Handle Push Notifications
 
-Use a <script> tag
-If you're already using NPM and a module bundler such as webpack or Rollup, you can run the following command to install the latest SDK (Learn more):
-
-npm install firebase
-Then, initialise Firebase and begin using the SDKs for the products that you'd like to use.
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDmVuVhZFVLxKpHAitIPDxx9f6t5Y69uXQ",
-  authDomain: "fcm-laravel-next.firebaseapp.com",
-  projectId: "fcm-laravel-next",
-  storageBucket: "fcm-laravel-next.appspot.com",
-  messagingSenderId: "291883322907",
-  appId: "1:291883322907:web:d799a0bfef9cba1f4a72be",
-  measurementId: "G-H8SQVBS032"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app); -->
-
+```bash
+php artisan make:controller FirebasePushController
 ```
 
+### inside the <i>Firebase Push Controller</i> use the Firebase Facade to access the <i>Messaging</i> method
+
+```php
+    public function __construct()
+    {
+        $this->notification= Firebase::messaging();
+    }
+```
+
+### Create a function that saves a token
+
+```php
+  public function setToken(Request $request){
+       $token = $request->input("fcm_token");
+       $request->user()->update(['fcm_token'=> $token]);
+       return response()->json(['message'=>'Successfully Updated Token']);
+   }
+```
+
+## Inside the <i>api.php</i>, create an endpoit that will cater the token setter
+
+```php
+Route::post('setToken', [FirebasePushController::class, 'setToken'])->name('firebase.token');
 ```
