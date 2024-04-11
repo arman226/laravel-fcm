@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('setToken', [FirebasePushController::class, 'setToken'])->name('firebase.token');
 
-Route::post('send/notif', [FirebasePushController::class, 'notification'])->name('firebase.token');
+Route::post('send/notif', [FirebasePushController::class, 'notification'])->name('firebase.notification.push');
 
 Route::get('/user', function (Request $request) {
     return $request->user();

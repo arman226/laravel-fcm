@@ -53,3 +53,14 @@ php artisan make:controller FirebasePushController
 ```php
 Route::post('setToken', [FirebasePushController::class, 'setToken'])->name('firebase.token');
 ```
+
+<!-- // {
+//     "apiKey": "AIzaSyDmVuVhZFVLxKpHAitIPDxx9f6t5Y69uXQ",
+//     "authDomain": "fcm-laravel-next.firebaseapp.com",
+//     "projectId": "fcm-laravel-next",
+//     "storageBucket": "fcm-laravel-next.appspot.com",
+//     "messagingSenderId": "291883322907",
+//     "appId": "1:291883322907:web:d799a0bfef9cba1f4a72be",
+//     "measurementId": "G-H8SQVBS032",
+//     "client_email": "firebase-adminsdk-hdhe3@fcm-laravel-next.iam.gserviceaccount.com"
+// } -->
